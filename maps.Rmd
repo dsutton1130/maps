@@ -23,3 +23,39 @@ harris <- get_acs(geography = "tract",
                   geometry = TRUE,
                   summary_var = "B02001_001")
 ```
+
+```{r, echo = FALSE}
+harris %>%
+  mutate(Percent = 100 * (estimate / summary_est)) %>%
+  ggplot(aes(fill = Percent, color = Percent)) +
+  facet_wrap(~ variable) +
+  geom_sf() +
+  scale_fill_viridis_c(direction = -1) +
+  scale_color_viridis_c(direction = -1) +
+  labs(title = "Racial geography of Harris County, Texas",
+       caption = "Source: American Community Survey 2014-2018") +
+  theme_void()
+```
+
+```{r, include = FALSE}
+sullivan <- get_acs(geography = "tract",
+                  variables = racevars, 
+                  year = 2018,
+                  state = "NY",
+                  county = "Sullivan County",
+                  geometry = TRUE,
+                  summary_var = "B02001_001")
+```
+
+```{r, echo = FALSE}
+sullivan %>%
+  mutate(Percent = 100 * (estimate / summary_est)) %>%
+  ggplot(aes(fill = Percent, color = Percent)) +
+  facet_wrap(~ variable) +
+  geom_sf() +
+  scale_fill_viridis_c(direction = -1) +
+  scale_color_viridis_c(direction = -1) +
+  labs(title = "Racial geography of Sullivan County, New York",
+       caption = "Source: American Community Survey 2014-2018") +
+  theme_void()
+```
